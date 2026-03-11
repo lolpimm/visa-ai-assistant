@@ -101,7 +101,7 @@
             const data = await response.json();
 
             // Add AI response to UI
-            container.innerHTML += `<div class="message ai">${data.reply}</div>`;
+            container.innerHTML += `<div class="message ai">${data.aiReply}</div>`;
             container.scrollTop = container.scrollHeight;
         }
     </script>
