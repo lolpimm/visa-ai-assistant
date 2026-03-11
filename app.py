@@ -13,6 +13,9 @@ db_url = os.getenv("DATABASE_URL")
 
 # Initialize Flask and the NEW Gemini SDK
 app = Flask(__name__)
+@app.route('/')
+def home():
+    return "<h1>Visa AI Assistant is Live!</h1><p>Send a POST request to /generate-reply to chat.</p>"
 client = genai.Client(api_key=api_key)
 
 # ---------------------------------------------------------
