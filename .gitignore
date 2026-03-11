@@ -1,6 +1,7 @@
+ai_agent.py
+final_test.py
+run_training.py
+test_api.py
 venv/
-__pycache__/
 .env
-*.pyc
-.vscode/
-.idea/
+__pycache__/
