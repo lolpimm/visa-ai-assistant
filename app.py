@@ -99,6 +99,9 @@ def generate_reply():
         return jsonify({"aiReply": reply})
 
     except Exception as e:
+        # This will force the error to show up in your Railway Deploy Logs
+        print(f"!!! CRITICAL ERROR: {str(e)}") 
+        
         error_msg = str(e)
         if "429" in error_msg:
             return jsonify({"aiReply": "Server is busy (Quota hit). Please try again in 30 seconds!"}), 429
