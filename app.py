@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 # --- CONFIGURATION ---
 client = genai.Client(api_key=api_key)
-MODEL_NAME = 'gemini-1.5-flash-latest'
+MODEL_NAME = 'gemini-1.5-flash'
 
 @app.route('/')
 def home():
