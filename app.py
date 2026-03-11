@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 # --- CONFIGURATION ---
 client = genai.Client(api_key=api_key)
-MODEL_NAME = 'gemini-1.5-flash'
+MODEL_NAME = 'gemini-2.0-flash' # Using 2.0 Flash for better reliability/speed
 
 @app.route('/')
 def home():
@@ -99,9 +99,6 @@ def generate_reply():
         return jsonify({"aiReply": reply})
 
     except Exception as e:
-        # This will force the error to show up in your Railway Deploy Logs
-        print(f"!!! CRITICAL ERROR: {str(e)}") 
-        
         error_msg = str(e)
         if "429" in error_msg:
             return jsonify({"aiReply": "Server is busy (Quota hit). Please try again in 30 seconds!"}), 429
