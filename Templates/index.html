@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa AI Assistant</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f7f6;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 70%;
+            line-height: 1.4;
+        }
+
+        .user {
+            align-self: flex-end;
+            background: #007bff;
+            color: white;
+            border-bottom-right-radius: 2px;
+        }
+
+        .ai {
+            align-self: flex-start;
+            background: #e9e9eb;
+            color: #333;
+            border-bottom-left-radius: 2px;
+        }
+
+        #input-area {
+            background: white;
+            padding: 20px;
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            outline: none;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chat-container">
+        <div class="message ai">Hello! I'm your Visa Assistant. How can I help you today?</div>
+    </div>
+    <div id="input-area">
+        <input type="text" id="user-input" placeholder="Type your message here...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const input = document.getElementById('user-input');
+            const container = document.getElementById('chat-container');
+            if (!input.value.trim()) return;
+
+            // Add user message to UI
+            container.innerHTML += `<div class="message user">${input.value}</div>`;
+            const userMsg = input.value;
+            input.value = '';
+
+            // Call your Railway API
+            const response = await fetch('/generate-reply', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ clientSequence: userMsg, chatHistory: [] })
+            });
+            const data = await response.json();
+
+            // Add AI response to UI
+            container.innerHTML += `<div class="message ai">${data.reply}</div>`;
+            container.scrollTop = container.scrollHeight;
+        }
+    </script>
+</body>
+
+</html>
